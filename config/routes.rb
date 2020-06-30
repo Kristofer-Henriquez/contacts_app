@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   # end
   namespace :api do
     get "/contactsurl" => "contacts_pages#run"
+    get "/contactsurl2" => "contacts_pages#run2"
   end
 end
