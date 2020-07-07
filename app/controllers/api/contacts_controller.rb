@@ -32,4 +32,10 @@ class Api::ContactsController < ApplicationController
     @contacts.save
     render "show.json.jb"
   end
+
+  def destroy
+    @contacts = Contact.find_by(id: params[:id])
+    @contacts.destroy
+    render json: {message: "You have successfully deleted the contact!"}
+  end
 end
