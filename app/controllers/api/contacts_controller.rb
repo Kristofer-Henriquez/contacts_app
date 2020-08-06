@@ -7,7 +7,14 @@ class Api::ContactsController < ApplicationController
 
   def show
     @contacts = Contact.find_by(id: params[:id])
-    render "show.json.jb"
+    p current_user
+    if current_user && current_user.id 
+      render "show.json.jb"
+    else
+      render json: {error: "unauthorized user"}
+    end
+
+    
   end
 
   def create
@@ -16,7 +23,8 @@ class Api::ContactsController < ApplicationController
       last_name: params[:last_name],
       email: params[:email],
       phone_number: params[:phone_number],
-      nickname: params[:nickname]
+      nickname: params[:nickname],
+      user_id: current_user.id
     )
     @contacts.save
     render "show.json.jb"
@@ -38,4 +46,5 @@ class Api::ContactsController < ApplicationController
     @contacts.destroy
     render json: {message: "You have successfully deleted the contact!"}
   end
+  
 end
